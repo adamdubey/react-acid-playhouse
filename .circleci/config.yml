@@ -16,7 +16,7 @@ aliases:
   - &show-current-branch-name
     run:
       name: Show Current Branch
-      command: echo ${CURRENT_BRANCH}
+      command: echo ${CIRCLE_BRANCH}
   
   - &restore-cache
     restore_cache:
@@ -96,10 +96,10 @@ jobs:
       - run:
           name: Deploy to AWS S3 
           command: |
-            if [ "${CURRENT_BRANCH}" == "main" ]
+            if [ "${CIRCLE_BRANCH}" == "main" ]
             then
               aws --region ${AWS_REGION} s3 sync ~/repo/build s3://${AWS_BUCKET_PRODUCTION} --delete
-            elif [ "${CURRENT_BRANCH}" == "staging" ]
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]
             then
               aws --region ${AWS_REGION} s3 sync ~/repo/build s3://${AWS_BUCKET_STAGING} --delete
             else
@@ -117,10 +117,10 @@ jobs:
           name: Deploy to AWS CloudFront
           command: |
             aws configure set preview.cloudfront
-            if [ "${CURRENT_BRANCH}" == "main" ]
+            if [ "${CIRCLE_BRANCH}" == "main" ]
             then
               aws cloudfront create-invalidation --distribution-id ${PRODUCTION_DISTRIBUTION_ID} --paths /\*
-            elif [ "${CURRENT_BRANCH}" == "staging" ]
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]
             then
               aws cloudfront create-invalidation --distribution-id ${STAGING_DISTRIBUTION_ID} --paths /\*
             else
