@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 
 const App = () => {
@@ -6,6 +7,6 @@ const App = () => {
       <h1>Acid Playhouse</h1>
     </div>
   );
-}
+};
 
 export default App;
