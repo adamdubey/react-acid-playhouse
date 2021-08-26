@@ -1,9 +1,9 @@
 variable "prefix" {
-    default = "app-acidplayhouse"
-  
+  default = "app-acidplayhouse"
+
 }
 
 variable "project" {
-    default = "acidplayhouse-app"
-  
+  default = "acidplayhouse-app"
+
 }
