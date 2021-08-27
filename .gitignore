@@ -21,3 +21,18 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+crash.log
+
+# Terraform
+tf/.terraform
+tf/.terraform.lock.hcl
+tf/.terraform/*
+**/.terraform/*
+tf/*.tfstate
+tf/*.tfstate.*
+tf/override.tf
+tf/override.tf.json
+tf/*_override.tf
+tf/*_override.tf.json
+
+
