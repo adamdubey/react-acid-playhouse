@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import './Slideshow.scss';
 
 const Slideshow = (props) => {
-  /* eslint-disable react/prop-types */
   const { images, auto, showArrows } = props;
 
   const [state, setState] = useState({
@@ -31,7 +30,7 @@ const Slideshow = (props) => {
         clearInterval(sliderInterval);
       };
     }
-    /* eslint-disable react/prop-types */
+    // eslint-disable-next-line
   }, []);
 
   let currentSlideIndex = 0;
@@ -111,10 +110,10 @@ const Slideshow = (props) => {
   );
 };
 
-Slideshow.PropTypes = {
+Slideshow.propTypes = {
   images: PropTypes.array.isRequired,
   auto: PropTypes.bool.isRequired,
-  showArrows: PropTypes.book.isRequired,
+  showArrows: PropTypes.bool.isRequired,
   currentSlide: PropTypes.number
 };
 
