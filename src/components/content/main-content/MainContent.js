@@ -7,13 +7,16 @@ import './MainContent.scss';
 const MainContent = () => {
   const images = [
     {
-      url: 'https://images.pexels.com/photos/1499344/pexels-photo-1499344.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+      url: 'https://images.pexels.com/photos/1499344/pexels-photo-1499344.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
+      rating: 4
     },
     {
-      url: 'https://images.pexels.com/photos/2527491/pexels-photo-2527491.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+      url: 'https://images.pexels.com/photos/2527491/pexels-photo-2527491.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
+      rating: 5
     },
     {
-      url: 'https://images.pexels.com/photos/60635/cat-animals-kitten-kitty-60635.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+      url: 'https://images.pexels.com/photos/60635/cat-animals-kitten-kitty-60635.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
+      rating: 4.5
     }
   ];
 
