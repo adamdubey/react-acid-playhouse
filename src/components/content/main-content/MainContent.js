@@ -5,7 +5,7 @@ import Paginate from '../paginate/Paginate';
 import Slideshow from '../slideshow/Slideshow';
 import Grid from '../grid/Grid';
 import './MainContent.scss';
-import { IMAGE_URL } from '../../../services/movies.service';
+import { IMG_URL } from '../../../services/movies.service';
 
 const MainContent = (props) => {
   const { list } = props;
@@ -33,15 +33,15 @@ const MainContent = (props) => {
       const IMAGES = [
         {
           id: 1,
-          url: `${IMAGE_URL}/${randomMovies[0].backdrop_path}`
+          url: `${IMG_URL}${randomMovies[0].backdrop_path}`
         },
         {
           id: 2,
-          url: `${IMAGE_URL}/${randomMovies[1].backdrop_path}`
+          url: `${IMG_URL}${randomMovies[1].backdrop_path}`
         },
         {
           id: 3,
-          url: `${IMAGE_URL}/${randomMovies[2].backdrop_path}`
+          url: `${IMG_URL}${randomMovies[2].backdrop_path}`
         }
       ];
       setImages(IMAGES);
@@ -66,7 +66,8 @@ const MainContent = (props) => {
           <Paginate currentPage={currentPage} totalPages={10} paginate={paginate} />
         </div>
       </div>
-      <Grid images={imagesArrray} />
+      <Grid images={imagesArray} />
+      {/* <Grid images={imagesArrray} /> */}
     </div>
   );
 };
