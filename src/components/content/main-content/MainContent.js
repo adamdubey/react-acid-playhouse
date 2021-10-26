@@ -6,9 +6,10 @@ import Slideshow from '../slideshow/Slideshow';
 import Grid from '../grid/Grid';
 import './MainContent.scss';
 import { IMG_URL } from '../../../services/movies.service';
+import { getMovies, setResponsePageNumber } from '../../../redux/actions/movies';
 
 const MainContent = (props) => {
-  const { list, movieType, totalPages, page } = props;
+  const { list, movieType, totalPages, page, getMovies, setResponsePageNumber } = props;
   const imagesArray = [
     {
       url: 'https://images.pexels.com/photos/1499344/pexels-photo-1499344.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
@@ -56,12 +57,21 @@ const MainContent = (props) => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(page);
+    // eslint-disable-next-line
+  }, [page, totalPages]);
+
   const paginate = (type) => {
+    let pageNumber = currentPage;
     if (type === 'prev' && currentPage >= 1) {
-      setCurrentPage((prev) => prev - 1);
+      pageNumber -= 1;
     } else {
-      setCurrentPage((prev) => prev + 1);
+      pageNumber += 1;
     }
+    setCurrentPage(pageNumber);
+    setResponsePageNumber(pageNumber, totalPages);
+    getMovies(movieType, pageNumber);
   };
 
   return (
@@ -83,7 +93,9 @@ MainContent.propTypes = {
   list: PropTypes.array.isRequired,
   movieType: PropTypes.string.isRequired,
   totalPages: PropTypes.number.isRequired,
-  page: PropTypes.number.isRequired
+  page: PropTypes.number.isRequired,
+  getMovies: PropTypes.func.isRequired,
+  setResponsePageNumber: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -93,4 +105,4 @@ const mapStateToProps = (state) => ({
   page: state.movies.page
 });
 
-export default connect(mapStateToProps, {})(MainContent);
+export default connect(mapStateToProps, { getMovies, setResponsePageNumber })(MainContent);
