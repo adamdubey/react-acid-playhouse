@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import placeHolder from '../../assets/logo.svg';
+import placeHolder from '../../assets/loading.gif';
 
 const LazyImage = (props) => {
   const { src, alt, children, className } = props;
