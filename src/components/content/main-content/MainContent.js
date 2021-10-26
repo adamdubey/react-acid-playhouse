@@ -8,7 +8,7 @@ import './MainContent.scss';
 import { IMG_URL } from '../../../services/movies.service';
 
 const MainContent = (props) => {
-  const { list } = props;
+  const { list, movieType, totalPages, page } = props;
   const imagesArray = [
     {
       url: 'https://images.pexels.com/photos/1499344/pexels-photo-1499344.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
@@ -24,9 +24,16 @@ const MainContent = (props) => {
     }
   ];
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(page);
   const [images, setImages] = useState([]);
   const randomMovies = list.sort(() => Math.random() - Math.random()).slice(0, 4);
+
+  const HEADER_TYPE = {
+    now_playing: 'Now Playing',
+    popular: 'Popular',
+    top_rated: 'Top Rated',
+    upcoming: 'Upcoming'
+  };
 
   useEffect(() => {
     if (randomMovies.length) {
@@ -61,9 +68,9 @@ const MainContent = (props) => {
     <div className="main-content">
       <Slideshow images={images} auto={true} showArrows={true} />
       <div className="grid-movie-title">
-        <div className="movieType">Now Playing</div>
+        <div className="movieType">{HEADER_TYPE[movieType]}</div>
         <div className="paginate">
-          <Paginate currentPage={currentPage} totalPages={10} paginate={paginate} />
+          <Paginate currentPage={currentPage} totalPages={totalPages} paginate={paginate} />
         </div>
       </div>
       <Grid images={imagesArray} />
@@ -73,11 +80,17 @@ const MainContent = (props) => {
 };
 
 MainContent.propTypes = {
-  list: PropTypes.array.isRequired
+  list: PropTypes.array.isRequired,
+  movieType: PropTypes.string.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  list: state.movies.list
+  list: state.movies.list,
+  movieType: state.movies.movieType,
+  totalPages: state.movies.totalPages,
+  page: state.movies.page
 });
 
 export default connect(mapStateToProps, {})(MainContent);
