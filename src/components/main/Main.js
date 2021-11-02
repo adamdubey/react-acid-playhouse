@@ -46,7 +46,11 @@ const Main = (props) => {
 
   return (
     <div className="main" ref={mainRef} onScroll={() => handleScroll()}>
-      {loading ? (<Spinner />) : (<> {searchResult && searchResult.length === 0 ? <MainContent /> : <SearchResult />} </>)}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <> {searchResult && searchResult.length === 0 ? <MainContent /> : <SearchResult />} </>
+      )}
       <div ref={bottomLineRef}></div>
     </div>
   );
