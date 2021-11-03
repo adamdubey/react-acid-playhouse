@@ -1,3 +1,4 @@
+/* eslint multiline-ternary: ["error", "never"] */
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -46,7 +47,11 @@ const Main = (props) => {
 
   return (
     <div className="main" ref={mainRef} onScroll={() => handleScroll()}>
-      {loading ? (<Spinner />) : (<> {searchResult && searchResult.length === 0 ? <MainContent /> : <SearchResult />} </>)}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <> {searchResult && searchResult.length === 0 ? <MainContent /> : <SearchResult />} </>
+      )}
       <div ref={bottomLineRef}></div>
     </div>
   );
