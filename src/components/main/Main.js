@@ -1,3 +1,4 @@
+/* eslint multiline-ternary: ["error", "never"] */
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
