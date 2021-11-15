@@ -6,7 +6,8 @@ import {
   MOVIE_TYPE,
   SEARCH_QUERY,
   SEARCH_RESULT,
-  MOVIE_DETAILS
+  MOVIE_DETAILS,
+  CLEAR_MOVIE_DETAILS
 } from '../types';
 import {
   MOVIE_API_URL,
@@ -93,6 +94,10 @@ export const movieDetails = (id) => async (dispatch) => {
       dispatchMethod(SET_ERROR, error.response.data.message, dispatch);
     }
   }
+};
+
+export const clearMovieDetails = () => async (dispatch) => {
+  dispatchMethod(CLEAR_MOVIE_DETAILS, [], dispatch);
 };
 
 const dispatchMethod = (type, payload, dispatch) => {
