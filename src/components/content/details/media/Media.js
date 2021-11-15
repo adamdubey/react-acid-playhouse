@@ -19,7 +19,7 @@ const Media = (props) => {
             {videos.results.map((data) => (
               <div className="video" key={data.key}>
                 <iframe
-                  title="Avengers"
+                  title={data.title}
                   style={{
                     width: '100%',
                     height: '100%'
