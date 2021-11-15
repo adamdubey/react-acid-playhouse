@@ -64,7 +64,7 @@ const Header = (props) => {
     setResponsePageNumber(page, totalPages);
 
     if (location.pathname !== '/' && location.key) {
-      setDisableSearch(true)
+      setDisableSearch(true);
     }
 
     // eslint-disable-next-line
@@ -78,8 +78,8 @@ const Header = (props) => {
       setType(type);
       setMovieType(type);
     } else {
-    setType(type);
-    setMovieType(type);
+      setType(type);
+      setMovieType(type);
     }
   };
 
