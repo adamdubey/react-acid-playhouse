@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import './Header.scss';
 import logo from '../../assets/logo.svg';
-// import { MOVIE_API_URL } from '../../services/movies.service';
 import {
   getMovies,
   setMovieType,
@@ -56,12 +55,18 @@ const Header = (props) => {
   const [type, setType] = useState('now_playing');
   const [search, setSearch] = useState('');
   const [disableSearch, setDisableSearch] = useState(false);
+  const [hideHeader, setHideHeader] = useState(false);
   const history = useHistory();
   const location = useLocation();
+  const detailsRoute = useRouteMatch('/:id/:name/details');
 
   useEffect(() => {
     getMovies(type, page);
     setResponsePageNumber(page, totalPages);
+
+    if (detailsRoute || location.pathname === '/') {
+      setHideHeader(true);
+    }
 
     if (location.pathname !== '/' && location.key) {
       setDisableSearch(true);
@@ -109,65 +114,67 @@ const Header = (props) => {
 
   return (
     <>
-      <div className="header-nav-wrapper">
-        <div className="header-bar"></div>
-        <div className="header-navbar">
-          <div className="header-image" onClick={() => navigateToMainPage()}>
-            <img src={logo} alt="" />
+      {hideHeader && (
+        <div className="header-nav-wrapper">
+          <div className="header-bar"></div>
+          <div className="header-navbar">
+            <div className="header-image" onClick={() => navigateToMainPage()}>
+              <img src={logo} alt="" />
+            </div>
+            <div
+              className={`${menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'}`}
+              id="header-mobile-menu"
+              onClick={() => toggleMenu()}
+            >
+              <span className="bar"></span>
+              <span className="bar"></span>
+              <span className="bar"></span>
+            </div>
+            <ul className={`${navClass ? 'header-nav header-movile-nav' : 'header-nav'}`}>
+              {HEADER_LIST.map((data) => (
+                <li
+                  key={data.id}
+                  className={data.type === type ? 'header-nav-item active-item' : 'header-nav-item'}
+                  onClick={() => setMovieTypeUrl(data.type)}
+                >
+                  <span className="header-list-name">
+                    <i className={data.iconClass}></i>
+                  </span>
+                  &nbsp;
+                  <span className="header-list-name">{data.name}</span>
+                </li>
+              ))}
+              <input
+                className={`search-input ${disableSearch ? 'disabled' : ''}`}
+                type="text"
+                placeholder="Search for a movie"
+                value={search}
+                onChange={onSearchChange}
+              />
+            </ul>
           </div>
-          <div
-            className={`${menuClass ? 'header-menu-toggle is-active' : 'header-menu-toggle'}`}
-            id="header-mobile-menu"
-            onClick={() => toggleMenu()}
-          >
-            <span className="bar"></span>
-            <span className="bar"></span>
-            <span className="bar"></span>
-          </div>
-          <ul className={`${navClass ? 'header-nav header-movile-nav' : 'header-nav'}`}>
-            {HEADER_LIST.map((data) => (
-              <li
-                key={data.id}
-                className={data.type === type ? 'header-nav-item active-item' : 'header-nav-item'}
-                onClick={() => setMovieTypeUrl(data.type)}
-              >
-                <span className="header-list-name">
-                  <i className={data.iconClass}></i>
-                </span>
-                &nbsp;
-                <span className="header-list-name">{data.name}</span>
-              </li>
-            ))}
-            <input
-              className={`search-input ${disableSearch ? 'disabled' : ''}`}
-              type="text"
-              placeholder="Search for a movie"
-              value={search}
-              onChange={onSearchChange}
-            />
-          </ul>
         </div>
-      </div>
+      )}
     </>
   );
 };
 
 Header.propTypes = {
-  getMovies: PropTypes.func.isRequired,
+  getMovies: PropTypes.func,
   setMovieType: PropTypes.func,
-  setResponsePageNumber: PropTypes.func,
   searchQuery: PropTypes.func,
   searchResult: PropTypes.func,
   clearMovieDetails: PropTypes.func,
-  // list: PropTypes.array,
+  setResponsePageNumber: PropTypes.func,
   page: PropTypes.number,
-  totalPages: PropTypes.number
+  totalPages: PropTypes.number,
+  errors: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
-  // list: state.movies.list,
   page: state.movies.page,
-  totalPages: state.movies.totalPages
+  totalPages: state.movies.totalPages,
+  errors: state.errors
 });
 
 export default connect(mapStateToProps, {
