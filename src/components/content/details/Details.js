@@ -22,6 +22,7 @@ const Details = (props) => {
       movieDetails(id);
     }
     setDetails(movie[0]);
+    // eslint-disable-next-line
   }, [id, movie]);
 
   return (
@@ -93,4 +94,4 @@ const mapStateToProps = (state) => ({
   movie: state.movies.movie
 });
 
-export default connect(null, { movieDetails })(Details);
+export default connect(mapStateToProps, { movieDetails })(Details);
